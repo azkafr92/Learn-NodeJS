@@ -1,0 +1,38 @@
+{
+  "name": "nobi-recruitment-test",
+  "version": "1.0.0",
+  "description": "Recruitment Test for Backend Software Engineer",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "serve": "nodemon index.js",
+    "lint": "npx eslint src/** --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azkafr92/nobi-recruitment-test.git"
+  },
+  "author": "Azka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/azkafr92/nobi-recruitment-test/issues"
+  },
+  "homepage": "https://github.com/azkafr92/nobi-recruitment-test#readme",
+  "devDependencies": {
+    "eslint": "^8.11.0",
+    "eslint-config-xo": "^0.40.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-validator": "^6.14.0",
+    "fast-csv": "^4.3.6",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.4"
+  }
+}
