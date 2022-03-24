@@ -1,6 +1,15 @@
-const router = require('express').Router();
 const {body} = require('express-validator');
-const {v1CreateUser, v1CreateToken} = require('../../handler/auth');
+const Repository = require('../../auth/repository');
+const Service = require('../../auth/service');
+const Handler = require('../../handler/auth');
+
+const router = require('express').Router();
+
+const db = require('../../config/config');
+const authRepository = new Repository(db);
+const authService = new Service(authRepository);
+const authHandler = new Handler(authService);
+
 const invalidEmailMessage = 'Invalid email address';
 const invalidPasswordMessage = 'Password must has minimum 8 characters, '
     + 'contains lower & uppercase, symbol, and number';
@@ -13,7 +22,7 @@ router.post(
 	body('password')
 		.isStrongPassword()
 		.withMessage(invalidPasswordMessage),
-	v1CreateUser,
+	authHandler.v1CreateUser,
 );
 
 router.post(
@@ -22,7 +31,7 @@ router.post(
 		.isEmail()
 		.withMessage(invalidEmailMessage),
 	body('password').notEmpty(),
-	v1CreateToken,
+	authHandler.v1CreateToken,
 );
 
 module.exports = router;
