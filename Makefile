@@ -11,6 +11,9 @@ run_migration:
 undo_migration:
 	npx sequelize-cli db:migrate:undo
 
+undo_all_migration:
+	npx sequelize-cli db:migrate:undo:all
+
 create_seed:
 	npx sequelize-cli seed:generate --name ${NAME}
 

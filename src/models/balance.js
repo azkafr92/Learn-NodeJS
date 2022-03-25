@@ -14,7 +14,7 @@ Balance.init({
 		allowNull: false,
 	},
 	amountAvailable: {
-		type: DataTypes.DECIMAL(10, 10),
+		type: DataTypes.DECIMAL(20, 10),
 		allowNull: false,
 		defaultValue: 0,
 	},

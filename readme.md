@@ -17,7 +17,25 @@
 
 ### 2. Running Development Server
 
-- Make sure you have a run MySql Server in local.
+- Make sure you have a running MySql Server in local.
 - Run `npm run serve`. This will check the database connection first, if connected, the server will run and initialize all table that not existed in the database yet.
 - Run `make run_migration` to update database migrations to the latest version.
 - Optional: run `make run_seed` to seeding database with test data.
+
+### 3. Another Makefile Commands
+
+- `make create_migration`: create migration file, example:
+
+```bash
+NAME:alter_users_table make create_migration
+```
+
+- `make undo_migration`: this command will revert to the most recent migration.
+- `make undo_all_migration`:  revert back to the initial state by undoing all migrations.
+- `make create_seed`: create another seeder file, example:
+
+```bash
+NAME:transaction_seeder make create_seed
+```
+
+- `make undo_seed`: undo all seeds.

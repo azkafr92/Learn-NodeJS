@@ -19,7 +19,7 @@ Transaction.init({
 		allowNull: false,
 	},
 	amount: {
-		type: DataTypes.DECIMAL(10, 10),
+		type: DataTypes.DECIMAL(20, 10),
 		allowNull: false,
 		defaultValue: 0,
 	},

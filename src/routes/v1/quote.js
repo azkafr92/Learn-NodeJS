@@ -1,6 +1,13 @@
+const { normalRateLimit } = require('../../utils');
 const router = require('express').Router();
-const {v1GetQuote} = require('../../handler/quote');
 
-router.get('/', v1GetQuote);
+const Service = require('../../quote/service');
+const quoteService = new Service();
+
+const Handler = require('../../handler/quote');
+const quoteHandler = new Handler(quoteService);
+
+
+router.get('/', normalRateLimit, quoteHandler.v1GetQuote);
 
 module.exports = router;
