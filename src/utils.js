@@ -101,6 +101,12 @@ const trimNumber = (x) => {
   return x;
 };
 
+const toCamelCase = (s) => {
+  return s.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => {
+    return chr.toUpperCase();
+  });
+};
+
 module.exports = {
   generateUid,
   hashPassword,
@@ -113,4 +119,5 @@ module.exports = {
   decodeToken,
   sleep,
   trimNumber,
+  toCamelCase,
 };

@@ -14,7 +14,7 @@ class Service {
         };
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
 
     return result;
@@ -31,7 +31,7 @@ class Service {
         };
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
     return result;
   };
