@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const rateLimit = require('express-rate-limit');
 const saltRounds = 10;
+const invalidJWTTokenMessage = 'Invalid JWT Token';
+const jwt = require('jsonwebtoken');
 
 const generateUid = length => {
   const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
@@ -47,6 +49,58 @@ const normalRateLimit = rateLimit({
   max: 2,
 });
 
+const decodeToken = (token) => {
+  return jwt.verify(token, process.env.TOKEN_SECRET, async (err, decoded) => {
+    let errorMessage = null;
+    let user = null;
+    if (err) {
+      errorMessage = { message: err.message, statusCode: 400 };
+    } else {
+      user = decoded;
+    }
+    return [errorMessage, user];
+  });
+};
+
+const sleep = (ms) => {
+  const time = Date.now();
+  let currentTime;
+  do {
+    currentTime = Date.now();
+  } while ( currentTime - time < ms);
+};
+
+const trimNumber = (x) => {
+  let e;
+  if (Math.abs(x) < 1.0) {
+    e = parseInt(x.toString().split('e-')[1]);
+    if (e >= 6) {
+      x = 0;
+    } else if (e) {
+      x *= Math.pow(10, e-1);
+      x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
+    } else {
+      x = Number(x.toString().substring(0, 8));
+    }
+  } else {
+    e = parseInt(x.toString().split('+')[1]);
+    if (e > 20) {
+      e -= 20;
+      x /= Math.pow(10, e);
+      x += (new Array(e+1)).join('0');
+    } else {
+      x = x.toString();
+      decimalSeparatorIndex = x.indexOf('.');
+      if (decimalSeparatorIndex > -1) {
+        [y, z] = x.split('.');
+        z = z.substring(0, 6);
+        x = Number(y + '.' + z);
+      }
+    }
+  }
+  return x;
+};
+
 module.exports = {
   generateUid,
   hashPassword,
@@ -55,4 +109,8 @@ module.exports = {
   tokenSanitizer,
   makeTokenErrorResponse,
   normalRateLimit,
+  invalidJWTTokenMessage,
+  decodeToken,
+  sleep,
+  trimNumber,
 };

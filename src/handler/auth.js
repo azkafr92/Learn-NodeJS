@@ -67,9 +67,7 @@ class Handler {
       .then(token => res.json({ status: 200, message: 'OK', token }))
       .catch(err => {
         console.error(err);
-        res
-          .status(err.statusCode)
-          .json({ status: err.statusCode, message: err.message, data: err.data });
+        res.status(err.statusCode).json({ status: err.statusCode, message: err.message, data: err.data });
         return;
       });
   };

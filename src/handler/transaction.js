@@ -1,13 +1,28 @@
-const {validationResult} = require('express-validator');
+const {makeInternalServerErrorResponse, makeTokenErrorResponse} = require('../utils');
 
-const v1CreateTransaction = (req, res) => {
-	const errors = validationResult(req);
-	if (!errors.isEmpty()) {
-		res.status(400).json({status: 400, message: 'Bad request', errors: errors.array()});
-		return;
-	}
+class Handler {
+  constructor(service) {
+    this.service = service;
+  }
 
-	res.json({status: 200, message: 'OK'});
-};
+  v1CreateTransaction = (req, res) => {
+    this.service.decodeToken(req.headers.authorization)
+      .then(([err, user]) => {
+        if (err) {
+          return makeTokenErrorResponse(res, err);
+        } else if (user) {
+          this.service.saveTransaction(req.body.trx_id, user.id, req.body.amount)
+            .then(([transaction, updatedUserBalance]) => {
+              res.json({status: 200, message: 'OK', transaction, balance: updatedUserBalance});
+            })
+            .catch((err) => {
+              console.error(err);
+              res.status(err.statusCode).json({status: err.statusCode, message: err.message, data: err.data});
+              return;
+            });
+        }
+      });
+  };
+}
 
-module.exports = {v1CreateTransaction};
+module.exports = Handler;

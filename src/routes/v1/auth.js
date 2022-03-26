@@ -1,6 +1,5 @@
-const { validationResult } = require('express-validator');
-const { body, header } = require('express-validator');
-const { makeValidationErrorResponse, tokenSanitizer, normalRateLimit } = require('../../utils');
+const { body, header, validationResult } = require('express-validator');
+const { makeValidationErrorResponse, tokenSanitizer, normalRateLimit, invalidJWTTokenMessage } = require('../../utils');
 
 const User = require('../../models/user');
 const Repository = require('../../auth/repository');
@@ -14,7 +13,6 @@ const authHandler = new Handler(authService);
 
 const invalidEmailMessage = 'Invalid email address';
 const invalidPasswordMessage = 'Password must has minimum 8 characters, contains lower & uppercase, symbol, and number';
-const invalidJWTTokenMessage = 'Invalid JWT Token';
 
 router.get(
   '/users/all',
