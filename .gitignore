@@ -1,6 +1,6 @@
 build
 node_modules
 service-account.json
-tmp
+tmp/upload/*
 .env
 config.json

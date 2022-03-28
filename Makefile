@@ -1,6 +1,7 @@
 init:
 	cp .env.example .env && \
-	cp src/config/config.example.json src/config/config.json
+	cp src/config/config.example.json src/config/config.json && \
+	mkdir tmp/upload -p
 
 create_migration:
 	npx sequelize-cli migration:create --name ${NAME}

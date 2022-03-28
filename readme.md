@@ -4,7 +4,6 @@
 
 ### 0. Prerequisites
 
-- Docker >= v19.03
 - MySQL >= v8.0
 - NPM >= 8.1.2
 

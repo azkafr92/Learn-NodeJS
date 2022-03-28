@@ -1,6 +1,6 @@
 const db = require('../config/config');
 const { sleep } = require('../utils');
-const delaySeconds = 1;
+const delaySeconds = 30;
 
 class Repository {
   constructor(model) {
