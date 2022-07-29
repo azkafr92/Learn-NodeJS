@@ -1,5 +1,3 @@
-# NOBI Recruitment Test for Backend Software Engineer
-
 ## Project Setup
 
 ### 0. Prerequisites
